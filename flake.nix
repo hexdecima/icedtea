@@ -7,12 +7,11 @@
       pkgs = import nixpkgs { inherit system; };
     in {
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nil
-          nixfmt-classic
-          mono
-          dotnet-sdk
-        ];
+        buildInputs = with pkgs;
+          let
+            tModDeps = [ mono dotnet-sdk ];
+            devDeps = [ nil nixfmt-classic omnisharp-roslyn ];
+          in tModDeps ++ devDeps;
       };
     };
 }
